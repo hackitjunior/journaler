@@ -27,5 +27,4 @@ class Journaler : Application() {
         super.onTrimMemory(level)
         Log.d(tag, "[ ON TRIM MEMORY ]: $level")
     }
-
 }

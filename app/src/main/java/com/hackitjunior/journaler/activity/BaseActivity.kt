@@ -1,9 +1,12 @@
 package com.hackitjunior.journaler.activity
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -16,15 +19,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.hackitjunior.journaler.R
+import com.hackitjunior.journaler.permission.PermissionCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : PermissionCompatActivity() {
 
 
     companion object {
         private var fontExoBold: Typeface? = null
         private var fontExoRegular: Typeface? = null
+        private val REQUEST_GPS = 0
 
         fun applyFonts(view: View, ctx: Context) {
             var vTag = ""
@@ -83,6 +89,10 @@ abstract class BaseActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         setContentView(getLayout())
         setSupportActionBar(toolbar)
+        requestPermissions(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
         // activity_title.setText(getActivityTitle())
         Log.v(tag, "[ ON CREATE ]")
     }
